@@ -13,18 +13,18 @@ const getVisitorInfo = async (req) => {
     try {
         if (client_ip === '::1' || client_ip === '127.0.0.1') {
             client_ip = '127.0.0.1';
-            locationocation = 'New York';
+            location = 'New York';
         } else {
             location = await getApproximateLocationFromIp(client_ip);
         }
         // const visitorLocation = await getApproximateLocationFromIp(clientIp);
         // const visitorLocation = 'New York';
-        const visitorTemperature = await getWeather(visitorLocation);
+        const visitorTemperature = await getWeather(location);
 
         return {
             client_ip,
             location,
-            greeting: `Hello, ${visitorName}!, the temperature is ${visitorTemperature} degrees Celcius in ${visitorLocation}.`
+            greeting: `Hello, ${visitorName}!, the temperature is ${visitorTemperature} degrees Celcius in ${location}`,
         };
     } catch (error) {
         throw new Error(`Failed to get visitor info: ${error.message}`);
