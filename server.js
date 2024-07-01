@@ -3,12 +3,16 @@ const os = require('os');
 const getVisitorInfo = require('./app');
 
 const hostname = os.hostname();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const server = http.createServer(async (req, res) => {
     console.log(`Request: ${req.method} ${req.url}`);
 
-    if (req.method === 'GET' && req.url.startsWith('/api/hello')) {
+    if (req.method === 'GET' && req.url === '/') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html');
+        res.end('<h1>Welcome to my Node.js App</h1><p>Navigate to <a href="/api/hello?visitor_name=Mark">/api/hello?visitor_name=Mark</a> to see the API in action.</p>');
+    } else if (req.method === 'GET' && req.url.startsWith('/api/hello')) {
         try {
             const visitorInfo = await getVisitorInfo(req);
             res.statusCode = 200;
@@ -21,10 +25,11 @@ const server = http.createServer(async (req, res) => {
         }
     } else {
         res.statusCode = 404;
+        res.setHeader('Content-Type', 'text/plain');
         res.end('Resource not found!');
     }
 });
 
-server.listen(port, hostname, () => {
+server.listen(port, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });
