@@ -14,12 +14,12 @@ const getVisitorInfo = async (req) => {
             client_ip = '127.0.0.1';
             location = 'New York';
         } else {
-            const locationInfo = await getApproximateLocationFromIp(client_ip);
-            if (locationInfo && locationInfo.city && locationInfo.city.names && locationInfo.city.names.en) {
-                location = locationInfo.city.names.en;
-            } else {
-                location = 'New York'; // Fallback location
-            }
+            const location = await getApproximateLocationFromIp(client_ip);
+            // if (locationInfo && locationInfo.city && locationInfo.city.names && locationInfo.city.names.en) {
+            //     location = locationInfo.city.names.en;
+            // } else {
+            //     location = 'New York'; // Fallback location
+            // }
         }
 
         const visitorTemperature = await getWeather(location);
