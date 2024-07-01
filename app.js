@@ -13,7 +13,7 @@ const getVisitorInfo = async (req) => {
     try {
         if (client_ip === '::1' || client_ip === '127.0.0.1') {
             client_ip = '127.0.0.1';
-            visitorLocation = 'New York';
+            locationocation = 'New York';
         } else {
             location = await getApproximateLocationFromIp(client_ip);
         }
