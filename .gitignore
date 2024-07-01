@@ -6,3 +6,4 @@ coverage/
 .env
 lib/
 logs/
+GeoLite2-City.mmdb
