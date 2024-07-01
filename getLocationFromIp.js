@@ -4,6 +4,7 @@ const accountId = 1032814;
 const licenseKey = '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';
 
 const getApproximateLocationFromIp = async (ip) => {
+    console.log(`Getting location from IP: ${ip}`);
     const client = new WebServiceClient(accountId, licenseKey, {
         host: 'geolite.info',
     });

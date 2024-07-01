@@ -7,16 +7,23 @@ const getVisitorInfo = async (req) => {
     const parseUrl = url.parse(req.url, true);
     const visitorName = parseUrl.query.visitor_name;
     // const clientIp = '85.25.43.84';
-    const clientIp = getClientIp(req);
+    let client_ip = getClientIp(req);
+    let location = 'New York';
 
     try {
-        const visitorLocation = await getApproximateLocationFromIp(clientIp);
+        if (client_ip === '::1' || client_ip === '127.0.0.1') {
+            client_ip = '127.0.0.1';
+            visitorLocation = 'New York';
+        } else {
+            location = await getApproximateLocationFromIp(clientIp);
+        }
+        // const visitorLocation = await getApproximateLocationFromIp(clientIp);
         // const visitorLocation = 'New York';
         const visitorTemperature = await getWeather(visitorLocation);
 
         return {
-            clientIp,
-            visitorLocation,
+            client_ip,
+            location,
             greeting: `Hello, ${visitorName}!, the temperature is ${visitorTemperature} degrees Celcius in ${visitorLocation}.`
         };
     } catch (error) {
