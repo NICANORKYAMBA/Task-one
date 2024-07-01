@@ -7,7 +7,7 @@ const getVisitorInfo = async (req) => {
     const parseUrl = url.parse(req.url, true);
     const visitorName = parseUrl.query.visitor_name;
     let client_ip = getClientIp(req);
-    let location = 'New York';
+    let location = '';
 
     try {
         if (client_ip === '::1' || client_ip === '127.0.0.1') {
