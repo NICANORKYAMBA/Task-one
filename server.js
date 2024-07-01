@@ -1,7 +1,8 @@
 const http = require('http');
+const os = require('os');
 const getVisitorInfo = require('./app');
 
-const hostname = 'localhost';
+const hostname = os.hostname();
 const port = 3000;
 
 const server = http.createServer(async (req, res) => {
